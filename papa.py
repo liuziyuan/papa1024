@@ -16,7 +16,7 @@ def get_movie_board_links(index_doc):
     movie_table = index_doc('#cate_1')
     board_hash = {0: '', 1: '', 2: '', 4: '', 5: ''}
     for key in board_hash:
-        board_hash[key] = movie_table.find("tr").eq(key).find('a:first').attr('href')
+        board_hash[key] = domian_name + movie_table.find("tr").eq(key).find('a:first').attr('href')
     return board_hash
 
 
