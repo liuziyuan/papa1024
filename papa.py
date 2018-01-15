@@ -16,7 +16,7 @@ def get_movie_board_links(index_doc):
     movie_table = index_doc('#cate_1')
     board_hash = {0: '', 1: '', 2: '', 4: '', 5: ''}
     for key in board_hash:
-        board_hash[key] = domian_name + movie_table.find("tr").eq(key).find('a:first').attr('href')
+        board_hash[key] = domian_name + movie_table.find("tr").eq(key).find('a').eq(1).attr('href')
     return board_hash
 
 
@@ -29,7 +29,7 @@ index_url = get_index_url(main_page)
 index_doc = get_index_doc(domian_name + index_url)
 # get board links which has bt download
 board_links = get_movie_board_links(index_doc)
-
+# get 
 
 
 print board_links
