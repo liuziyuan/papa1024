@@ -15,13 +15,12 @@ def get_movie_board_urls(index_doc):
     movie_table = index_doc('#cate_1')
     board_hash = {0: '', 1: '', 2: '', 4: '', 5: ''}
     for key in board_hash:
-        board_hash[key] = domian_name + \
-            movie_table.find("tr").eq(key).find('a').eq(1).attr('href')
+        board_hash[key] = movie_table.find("tr").eq(key).find('a').eq(1).attr('href')
     return board_hash
 
 def get_board_post_infos(board, url):
     post_infos = []
-    doc = get_doc(url)
+    doc = get_doc(domian_name + url)
     tr_list = doc('#ajaxtable').find('tr')
     posts = get_posts(tr_list)
     print len(posts)
@@ -49,7 +48,7 @@ def get_post_info(board, post):
     post_info = {}
     link = post.find('.tal').find('a')
     post_info['board'] = board
-    post_info['href'] = domian_name +link.attr('href')
+    post_info['href'] = link.attr('href')
     post_info['text'] = link.text()
     post_info['download_href'] = None
     return post_info
