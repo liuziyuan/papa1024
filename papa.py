@@ -62,7 +62,17 @@ def get_post_download_url(href):
     # download_href = doc('.tr1 .do_not_catch').eq(0).find('a:last').attr('href')
     a_index = doc('.tpc_content').children('a').length - 1
     download_href = doc('.tpc_content').children('a').eq(a_index).attr('href')
+    if download_href != None:
+        download_href = format_rmdown(download_href)
     return download_href
+
+def format_rmdown(download_href):
+    download_href = download_href[:-2]
+    download_href = download_href.replace('______','.')
+    download_href_array = download_href.split('?')
+    download_href = download_href_array[1] + '?' + download_href_array[2]
+    return download_href
+
 
 
 # get main page by domain name
