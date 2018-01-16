@@ -48,30 +48,40 @@ def get_post_info(board, post):
     post_info = {}
     link = post.find('.tal').find('a')
     post_info['board'] = board
-    post_info['href'] = link.attr('href')
+    href = link.attr('href')
+    post_info['href'] = href
     post_info['text'] = link.text()
-    post_info['download_href'] = None
+    post_info['download_href'] = get_post_download_url(href)
+    print post_info['download_href']
     return post_info
 
-def get_post_download_url(post_info):
-
-    return
+def get_post_download_url(href):
+    print href
+    download_href = ''
+    doc = get_doc(domian_name + href)
+    # download_href = doc('.tr1 .do_not_catch').eq(0).find('a:last').attr('href')
+    a_index = doc('.tpc_content').children('a').length - 1
+    download_href = doc('.tpc_content').children('a').eq(a_index).attr('href')
+    return download_href
 
 
 # get main page by domain name
 domian_name = 'http://dd.itbb.men/'
-main_page = requests.get(domian_name)
-# get index page url
-index_url = get_index_url(main_page)
-# get index page doc
-index_doc = get_doc(domian_name + index_url)
-# get board links which has bt download
-board_links = get_movie_board_urls(index_doc)
-# get board post list
-all_posts = []
-for key in board_links:
-    all_posts += get_board_post_infos(key, board_links[key])
-print len(all_posts)
-for post_info in all_posts:
-    get_post_download_url(post_info)
+# main_page = requests.get(domian_name)
+# # get index page url
+# index_url = get_index_url(main_page)
+# # get index page doc
+# index_doc = get_doc(domian_name + index_url)
+# # get board links which has bt download
+# board_links = get_movie_board_urls(index_doc)
+# # get board post list
+# all_posts = []
+# for key in board_links:
+#     all_posts += get_board_post_infos(key, board_links[key])
+# print len(all_posts)
 
+test = 'htm_data/4/1801/2922054.html'
+print get_post_download_url(test)
+
+test2 = 'htm_data/4/1801/2922191.html'
+print get_post_download_url(test2)
