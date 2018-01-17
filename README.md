@@ -6,6 +6,11 @@ Through this application to learn python, including  string, array, dictionary, 
 
 
 ## How to use it
+
+### Command
+`python papa.py`
+
+### Code
 ```
 domian_name = 'http://dd.itbb.men/'
 # get index doc
