@@ -1,16 +1,19 @@
 import requests
 from pyquery import PyQuery as pq
 
+# get index page url
 def get_index_url(main_page):
     main_doc = pq(main_page.text)
     index_herf = main_doc('a:first').attr('href')
     return index_herf
 
+# get doc by url
 def get_doc(url):
     page = requests.get(url)
     doc = pq(page.text)
     return doc
 
+# get board url list, return all of movie board url {}
 def get_movie_board_urls(index_doc):
     movie_table = index_doc('#cate_1')
     board_hash = {0: '', 1: '', 2: '', 4: '', 5: ''}
@@ -28,6 +31,7 @@ def get_board_post_infos(board, url):
         post_infos.append(get_post_info(board, post))
     return post_infos
 
+# get posts by tr list ,return posts []
 def get_posts(tr_list):
     index = 0
     common_topic_index = 0
@@ -44,6 +48,7 @@ def get_posts(tr_list):
             posts.append(tr)
     return posts
 
+# get post info by board index and post, return post_info {}
 def get_post_info(board, post):
     post_info = {}
     link = post.find('.tal').find('a')
@@ -55,16 +60,19 @@ def get_post_info(board, post):
     print post_info['download_href']
     return post_info
 
+# get post download url by href, return a href
 def get_post_download_url(href):
     print href
     download_href = ''
     doc = get_doc(domian_name + href)
     # download_href = doc('.tr1 .do_not_catch').eq(0).find('a:last').attr('href')
+    index = doc('a').filter(lambda i: pq(i).attr('href'))
     a_index = doc('.tpc_content').children('a').length - 1
     download_href = doc('.tpc_content').children('a').eq(a_index).attr('href')
     if download_href != None:
         download_href = format_rmdown(download_href)
     return download_href
+
 
 def format_rmdown(download_href):
     download_href = download_href[:-2]
