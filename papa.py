@@ -16,11 +16,12 @@ def get_doc(url):
 # get board url list, return all of movie board url {}
 def get_movie_board_urls(index_doc):
     movie_table = index_doc('#cate_1')
-    board_hash = {0: '', 1: '', 2: '', 4: '', 5: ''}
+    board_hash = {0: None, 1: None, 2: None, 4: None, 5: None}
     for key in board_hash:
         board_hash[key] = movie_table.find("tr").eq(key).find('a').eq(1).attr('href')
     return board_hash
 
+# get board posts, no pager, just first page at any board
 def get_board_post_infos(board, url):
     post_infos = []
     doc = get_doc(domian_name + url)
@@ -57,6 +58,7 @@ def get_post_info(board, post):
     post_info['href'] = href
     post_info['text'] = link.text()
     post_info['download_href'] = get_post_download_url(href)
+
     print post_info['download_href']
     return post_info
 
