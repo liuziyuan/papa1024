@@ -12,6 +12,12 @@ Through this application to learn python, including  string, array, dictionary, 
 
 ### Code
 ```
+# -*- coding:utf-8 -*-
+import requests
+from pyquery import PyQuery as pq
+import spider_papa as papa
+
+
 domian_name = 'http://dd.itbb.men/'
 # get index doc
 index_doc = papa.index.get_doc_by_domian_name(domian_name)
