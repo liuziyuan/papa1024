@@ -65,15 +65,21 @@ def get_post_download_url(href):
     print href
     download_href = ''
     doc = get_doc(domian_name + href)
-    # download_href = doc('.tr1 .do_not_catch').eq(0).find('a:last').attr('href')
-    index = doc('a').filter(lambda i: pq(i).attr('href'))
-    a_index = doc('.tpc_content').children('a').length - 1
-    download_href = doc('.tpc_content').children('a').eq(a_index).attr('href')
-    if download_href != None:
-        download_href = format_rmdown(download_href)
+    links = doc('.tpc_content').find('a')
+    download_href = get_rmdown_url(links)
+    download_href = format_rmdown(download_href)
     return download_href
 
+# get rmdown download url from links of current post
+def get_rmdown_url(links):
+    used_link = []
+    for link in links.items():
+        href = str(link.attr('href'))
+        if href.find('rmdown') > 0:
+            used_link.append(href)
+    return used_link[-1]
 
+# format rmdown url to access url
 def format_rmdown(download_href):
     download_href = download_href[:-2]
     download_href = download_href.replace('______','.')
@@ -85,21 +91,21 @@ def format_rmdown(download_href):
 
 # get main page by domain name
 domian_name = 'http://dd.itbb.men/'
-# main_page = requests.get(domian_name)
-# # get index page url
-# index_url = get_index_url(main_page)
-# # get index page doc
-# index_doc = get_doc(domian_name + index_url)
-# # get board links which has bt download
-# board_links = get_movie_board_urls(index_doc)
-# # get board post list
-# all_posts = []
-# for key in board_links:
-#     all_posts += get_board_post_infos(key, board_links[key])
-# print len(all_posts)
+main_page = requests.get(domian_name)
+# get index page url
+index_url = get_index_url(main_page)
+# get index page doc
+index_doc = get_doc(domian_name + index_url)
+# get board links which has bt download
+board_links = get_movie_board_urls(index_doc)
+# get board post list
+all_posts = []
+for key in board_links:
+    all_posts += get_board_post_infos(key, board_links[key])
+print len(all_posts)
 
-test = 'htm_data/4/1801/2922054.html'
-print get_post_download_url(test)
+# test = 'htm_data/4/1801/2922054.html'
+# print get_post_download_url(test)
 
-test2 = 'htm_data/4/1801/2922191.html'
-print get_post_download_url(test2)
+# test2 = 'htm_data/4/1801/2922191.html'
+# print get_post_download_url(test2)
