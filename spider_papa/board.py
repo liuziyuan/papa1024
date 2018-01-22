@@ -13,6 +13,17 @@ def init(board_sequences, index_selected_area):
     return boards
 
 
+def board_process(board, domian_name, max_page_indexs):
+    """ createa board_process """
+    print board.sequence
+    url = domian_name + board.url
+    for page_index in range(1, max_page_indexs + 1):
+        rows = board.get_pager_rows(url, page_index)
+        for row in rows:
+            post = papa.post.Post()
+            post.set_post_base_info(row, domian_name)
+
+
 class Board(object):
     """
     sequence is board index

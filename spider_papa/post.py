@@ -25,14 +25,14 @@ class Post(object):
         self.name = link.text()
         self.download_url = self.get_download_url(domian_name + self.url)
         self.download_count = self.get_download_count(self.download_url)
-        print self.download_count
+        # print self.download_count
         return
 
     def get_download_count(self, url):
         if url <> None:
             doc = papa.get_doc(url)
             text = doc.text()
-            index = text.find('downloaded:')
+            index = text.find('Downloaded:')
             index += 11
             count = filter(str.isdigit, text[index : index + 8])
             return count
@@ -41,7 +41,7 @@ class Post(object):
 
     def get_download_url(self, url):
         """get download url"""
-        print url
+        # print url
         download_url = None
         doc = papa.get_doc(url)
         links = doc('.tpc_content').find('a')

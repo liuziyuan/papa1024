@@ -1,9 +1,12 @@
 # -*- coding:utf-8 -*-
-import requests
-from pyquery import PyQuery as pq
 import spider_papa as papa
+import time
+from threading import Thread
+import multiprocessing
 
 domian_name = 'http://dd.itbb.men/'
+print '---------------start---------------'
+t = time.time()
 # get index doc
 index_doc = papa.index.get_doc_by_domian_name(domian_name)
 index_selected_area = papa.index.get_selected_area(index_doc)
@@ -12,12 +15,21 @@ index_selected_area = papa.index.get_selected_area(index_doc)
 board_sequences = [0, 1, 2, 4, 5]
 boards = papa.board.init(board_sequences, index_selected_area)
 
+mp_count = []
+
 for board in boards:
-    rows = board.get_pager_rows(domian_name + board.url, 1)
-    for row in rows:
-        post = papa.post.Post()
-        post.set_post_base_info(row, domian_name)
-# print len(board.get_pager_rows(domian_name + board.url, 1))
+    p = multiprocessing.Process(target=papa.board.board_process, args=(
+        board, domian_name,1))
+    p.daemon = True
+    p.start()
+    mp_count.append(p)
+
+for p in mp_count:
+    p.join()
+
+print("---------------end---------------")
+print(time.time() - t)
+
 
 # test = 'http://dd.itbb.men/read.php?tid=2924053'
 # download_url = papa.post.Post().get_download_url(test)
