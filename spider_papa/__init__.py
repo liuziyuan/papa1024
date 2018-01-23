@@ -8,7 +8,13 @@ import spider_papa.post
 
 def get_doc(url):
     """get PyQuery object"""
-    page = requests.get(url)
-    page.encoding = 'gbk'
-    doc = pq(page.text)
-    return doc
+    try:
+        page = requests.get(url)
+        page.raise_for_status()
+    except requests.RequestException as exc:
+        return None
+    else:
+        page.encoding = 'gbk'
+        doc = pq(page.text)
+        return doc
+    
