@@ -13,25 +13,33 @@ Through this application to learn python, including  string, array, dictionary, 
 ### Code
 ```
 # -*- coding:utf-8 -*-
-import requests
-from pyquery import PyQuery as pq
 import spider_papa as papa
+import time
 
+
+def post_call_back(request, result):
+    """get post callback function, result is the post object"""
+    print result.url
+    print result.download_count
 
 domian_name = 'http://dd.itbb.men/'
-# get index doc
-index_doc = papa.index.get_doc_by_domian_name(domian_name)
-index_selected_area = papa.index.get_selected_area(index_doc)
+print '---------------start---------------'
+t = time.time()
+
+# get index object
+index = papa.index.Index(domian_name)
+# get selected area at index page
+index_selected_area = index.init_index()
 
 # get board info by sequences
 board_sequences = [0, 1, 2, 4, 5]
+# get board objects by sequences and index_selected_area
 boards = papa.board.init(board_sequences, index_selected_area)
+# execute boards process
+papa.board.task_execute(boards, index.domian_name, 1, post_call_back)
 
-for board in boards:
-    rows = board.get_pager_rows(domian_name + board.url, 1)
-    for row in rows:
-        post = papa.post.Post()
-        post.set_post_base_info(row, domian_name)
+print("---------------end---------------")
+print(time.time() - t)
 ```
 
 ## Development

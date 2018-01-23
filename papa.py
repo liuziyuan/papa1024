@@ -24,20 +24,6 @@ boards = papa.board.init(board_sequences, index_selected_area)
 # execute boards process
 papa.board.task_execute(boards, index.domian_name, 1, post_call_back)
 
-# papa.board.get_post_callback(request,result)
-
-# mp_count = []
-
-# for board in boards:
-#     p = multiprocessing.Process(target=papa.board.board_process, args=(
-#         board, domian_name,1))
-#     p.daemon = True
-#     p.start()
-#     mp_count.append(p)
-
-# for p in mp_count:
-#     p.join()
-
 print("---------------end---------------")
 print(time.time() - t)
 
