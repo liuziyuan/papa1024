@@ -49,14 +49,14 @@ class Board(object):
         pool = threadpool.ThreadPool(20)
         args = []
         for page_index in range(1, max_page_indexs + 1):
-            rows = board.get_pager_rows(url, page_index)
+            rows = self.__get_pager_rows(url, page_index)
             for row in rows:
                 args.append((None, {'row': row, 'domian_name': domian_name}))
-        requests = threadpool.makeRequests(self.set_post, args, func_callback)
+        requests = threadpool.makeRequests(self.__set_post, args, func_callback)
         [pool.putRequest(req) for req in requests]
         pool.wait()
 
-    def set_post(self, row, domian_name):
+    def __set_post(self, row, domian_name):
         """set post info and return the post object"""
         post = papa.post.Post()
         return post.set_post_base_info(row, domian_name)
@@ -66,9 +66,9 @@ class Board(object):
         link = index_selected_area.find("tr").eq(self.sequence).find('a').eq(2)
         self.url = link.attr('href')
         self.name = link.text()
-        return
+        return self
 
-    def get_pager_rows(self, url, page_index):
+    def __get_pager_rows(self, url, page_index):
         """
         get pager post
         pager params : &search=&page=2

@@ -58,6 +58,7 @@ class Post(object):
             if href.find('rmdown') > 0:
                 used_link.append(href)
         if len(used_link) > 0:
+            # find last link
             return used_link[-1]
         else:
             return None

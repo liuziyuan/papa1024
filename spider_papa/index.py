@@ -15,15 +15,15 @@ class Index(object):
 
     def init_index(self):
         """init index, return index selected area"""
-        index_doc = self.get_doc_by_domian_name()
-        return self.get_selected_area(index_doc)
+        index_doc = self.__get_doc_by_domian_name()
+        return self.__get_selected_area(index_doc)
 
-    def get_doc_by_domian_name(self):
+    def __get_doc_by_domian_name(self):
         """ get index doc by domian name """
         index_url = self.__get_url()
         return self.__get_doc(self.domian_name + index_url)
 
-    def get_selected_area(self, index_doc):
+    def __get_selected_area(self, index_doc):
         """ get selected area in index doc """
         return index_doc('#cate_1')
 
