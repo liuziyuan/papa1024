@@ -29,6 +29,7 @@ class Post(object):
         return self
 
     def get_download_count(self, url):
+        """get download count function"""
         if url <> None:
             doc = papa.get_doc(url)
             text = doc.text()
