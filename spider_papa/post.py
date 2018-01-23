@@ -26,7 +26,7 @@ class Post(object):
         self.download_url = self.get_download_url(domian_name + self.url)
         self.download_count = self.get_download_count(self.download_url)
         # print self.download_count
-        return
+        return self
 
     def get_download_count(self, url):
         if url <> None:

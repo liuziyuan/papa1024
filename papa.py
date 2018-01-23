@@ -1,31 +1,42 @@
 # -*- coding:utf-8 -*-
 import spider_papa as papa
 import time
-from threading import Thread
-import multiprocessing
+
+
+def post_call_back(request, result):
+    """get post callback function, result is the post object"""
+    print result.url
+    print result.download_count
 
 domian_name = 'http://dd.itbb.men/'
 print '---------------start---------------'
 t = time.time()
-# get index doc
-index_doc = papa.index.get_doc_by_domian_name(domian_name)
-index_selected_area = papa.index.get_selected_area(index_doc)
+
+# get index object
+index = papa.index.Index(domian_name)
+# get selected area at index page
+index_selected_area = index.init_index()
 
 # get board info by sequences
 board_sequences = [0, 1, 2, 4, 5]
+# get board objects by sequences and index_selected_area
 boards = papa.board.init(board_sequences, index_selected_area)
+# execute boards process
+papa.board.task_execute(boards, index.domian_name, 1, post_call_back)
 
-mp_count = []
+# papa.board.get_post_callback(request,result)
 
-for board in boards:
-    p = multiprocessing.Process(target=papa.board.board_process, args=(
-        board, domian_name,1))
-    p.daemon = True
-    p.start()
-    mp_count.append(p)
+# mp_count = []
 
-for p in mp_count:
-    p.join()
+# for board in boards:
+#     p = multiprocessing.Process(target=papa.board.board_process, args=(
+#         board, domian_name,1))
+#     p.daemon = True
+#     p.start()
+#     mp_count.append(p)
+
+# for p in mp_count:
+#     p.join()
 
 print("---------------end---------------")
 print(time.time() - t)

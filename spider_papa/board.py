@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
 """board module"""
+import threadpool
+import multiprocessing
 import spider_papa as papa
 
 
@@ -13,16 +15,19 @@ def init(board_sequences, index_selected_area):
     return boards
 
 
-def board_process(board, domian_name, max_page_indexs):
-    """ createa board_process """
-    print board.sequence
-    url = domian_name + board.url
-    for page_index in range(1, max_page_indexs + 1):
-        rows = board.get_pager_rows(url, page_index)
-        for row in rows:
-            post = papa.post.Post()
-            post.set_post_base_info(row, domian_name)
+def task_execute(boards, domian_name, max_page_index, func_callback):
+    """execute process"""
+    mp_count = []
+    for board in boards:
+        process = multiprocessing.Process(target=board.board_process, args=(
+            board, domian_name, max_page_index, func_callback))
+        process.daemon = True
+        process.start()
+        mp_count.append(process)
 
+    for process in mp_count:
+        process.join()
+    return
 
 class Board(object):
     """
@@ -36,6 +41,25 @@ class Board(object):
         self.name = None
         self.url = None
         self.posts = []
+
+    def board_process(self, board, domian_name, max_page_indexs, func_callback):
+        """createa board_process """
+        print board.sequence
+        url = domian_name + board.url
+        pool = threadpool.ThreadPool(20)
+        args = []
+        for page_index in range(1, max_page_indexs + 1):
+            rows = board.get_pager_rows(url, page_index)
+            for row in rows:
+                args.append((None, {'row': row, 'domian_name': domian_name}))
+        requests = threadpool.makeRequests(self.set_post, args, func_callback)
+        [pool.putRequest(req) for req in requests]
+        pool.wait()
+
+    def set_post(self, row, domian_name):
+        """set post info and return the post object"""
+        post = papa.post.Post()
+        return post.set_post_base_info(row, domian_name)
 
     def set_board_info(self, index_selected_area):
         """ set board url and name """
