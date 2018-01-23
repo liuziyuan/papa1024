@@ -12,7 +12,7 @@ def get_doc(url):
         page = requests.get(url)
         page.raise_for_status()
     except requests.RequestException as exc:
-        return None
+        raise exc
     else:
         page.encoding = 'gbk'
         doc = pq(page.text)
