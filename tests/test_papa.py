@@ -3,7 +3,7 @@
 import unittest
 import sys
 sys.path.append("../")
-import spider_papa as papa
+import papa1024 as papa
 
 
 class TestMathFunc(unittest.TestCase):

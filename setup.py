@@ -7,6 +7,6 @@ setup(name='papa1024',
       author='liuziyuan',
       author_email='liuziyuan.room@gmail.com',
       url='https://github.com/liuziyuan/papa1024',
-      packages = ['spider_papa'],
+      packages = ['papa1024'],
       install_requires=['requests>=2.18.4', 'pyquery>=1.4.0', 'threadpool>=1.3.2']
      )

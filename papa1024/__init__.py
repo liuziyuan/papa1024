@@ -2,9 +2,9 @@
 """papa module, common function of operate page """
 import requests
 from pyquery import PyQuery as pq
-import spider_papa.index
-import spider_papa.board
-import spider_papa.post
+import papa1024.index
+import papa1024.board
+import papa1024.post
 
 def get_doc(url):
     """get PyQuery object"""

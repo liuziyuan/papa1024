@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 """index module"""
-import spider_papa as papa
+import papa1024 as papa
 
 # def init(domian_name):
 #     """create an index objext and return a index selected area"""

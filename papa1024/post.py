@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 """post module"""
-import spider_papa as papa
+import papa1024 as papa
 
 
 class Post(object):

@@ -2,7 +2,7 @@
 """board module"""
 import threadpool
 import multiprocessing
-import spider_papa as papa
+import papa1024 as papa
 
 
 def init(board_sequences, index_selected_area):
