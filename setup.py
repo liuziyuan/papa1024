@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='papa1024',
-      version='0.01',
+      version='0.02',
       description='papa1024 is the web crawler application of the 1024 forum.',
       license='MIT',
       author='liuziyuan',
