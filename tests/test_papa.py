@@ -11,7 +11,7 @@ class TestMathFunc(unittest.TestCase):
 
     def setUp(self):
         print "create index object before test.Prepare environment."
-        self.domian_name = 'http://dd.itbb.men/'
+        self.domian_name = 'http://cl.ghuws.men/'
         self.index = papa.index.Index(self.domian_name)
         self.index_selected_area = self.index.init_index()
         self.board = papa.board.Board(1)

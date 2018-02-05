@@ -8,7 +8,7 @@ def post_call_back(request, result):
     print result.url
     print result.download_count
 
-domian_name = 'http://dd.itbb.men/'
+domian_name = 'http://cl.ghuws.men/'
 print '---------------start---------------'
 t = time.time()
 
