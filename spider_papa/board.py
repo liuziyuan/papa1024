@@ -44,7 +44,6 @@ class Board(object):
 
     def board_process(self, board, domian_name, max_page_indexs, func_callback):
         """createa board_process """
-        print board.sequence
         url = domian_name + board.url
         pool = threadpool.ThreadPool(20)
         args = []
@@ -74,7 +73,7 @@ class Board(object):
         pager params : &search=&page=2
         """
         params = "&search=&page=" + str(page_index)
-        if page_index <> 1:
+        if page_index != 1:
             url = url + params
         post_rows = self.__get_post_rows(url)
         return post_rows

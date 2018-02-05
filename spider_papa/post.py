@@ -30,12 +30,13 @@ class Post(object):
 
     def get_download_count(self, url):
         """get download count function"""
-        if url <> None:
+        if url != None:
             doc = papa.get_doc(url)
             text = doc.text()
             index = text.find('Downloaded:')
             index += 11
-            count = filter(str.isdigit, text[index : index + 8])
+            count = list(filter(str.isdigit, text[index : index + 8]))
+            count = ''.join(map(str, count))
             return count
         else:
             return None
@@ -65,7 +66,7 @@ class Post(object):
             return None
 
     def __format_rmdown(self, download_href):
-        if download_href <> None:
+        if download_href != None:
             download_href = download_href[:-2]
             download_href = download_href.replace('______', '.')
             download_href_array = download_href.split('?')

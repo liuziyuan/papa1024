@@ -5,18 +5,18 @@ import time
 
 def post_call_back(request, result):
     """get post callback function, result is the post object"""
-    print result.url
-    print result.download_count
+    print(result.url)
+    print(result.download_count)
 
 domian_name = 'http://cl.ghuws.men/'
-print '---------------start---------------'
+print('---------------start---------------')
 t = time.time()
 
 # get index object
 try:
     index = papa.index.Index(domian_name)
 except Exception as exc:
-    print exc
+    print(exc)
 else:
     # get selected area at index page
     index_selected_area = index.init_index()
