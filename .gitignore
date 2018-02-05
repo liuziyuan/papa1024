@@ -1,2 +1,4 @@
 .vscode/launch.json
 *.pyc
+papa1024.egg-info
+dist
