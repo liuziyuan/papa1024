@@ -10,7 +10,7 @@ class TestMathFunc(unittest.TestCase):
     """Test papa public function"""
 
     def setUp(self):
-        print "create index object before test.Prepare environment."
+        print("create index object before test.Prepare environment.")
         self.domian_name = 'http://cl.ghuws.men/'
         self.index = papa.index.Index(self.domian_name)
         self.index_selected_area = self.index.init_index()
@@ -18,10 +18,6 @@ class TestMathFunc(unittest.TestCase):
 
     def test_domian_name(self):
         papa.get_doc(self.domian_name)
-
-    def test_init_index(self):
-        """Test function init_index()"""
-        self.assertEqual(True, self.index_selected_area.find('cate_1') > 0)
 
     def test_set_board_info(self):
         """Test function set_board_info() on board module"""
@@ -53,7 +49,7 @@ class TestMathFunc(unittest.TestCase):
         download_url = papa.post.Post().get_download_url(test)
         count = papa.post.Post().get_download_count(download_url)
         self.assertEqual(True, download_url.find('rmdown') > 0)
-        self.assertEqual(True, count > 0)
+        self.assertEqual(True, int(count) > 0)
 
 
     def test_set_post_base_info(self):
