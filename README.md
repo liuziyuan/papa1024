@@ -8,7 +8,9 @@ Through this application to learn python, including  string, array, dictionary, 
 ## How to use it
 
 ### Command
-`python papa.py`
+```
+python papa.py
+```
 
 ### Code
 ```
@@ -46,8 +48,19 @@ print(time.time() - t)
 
 ### Pre Installation
 
-```sudo pip install pipenv```
+```
+sudo pip install pipenv
+```
 
 ### Recover project
 
-```pipenv install```
+```
+pipenv install
+```
+
+### Unit tests
+
+```
+cd tests
+python test_papa.py 
+```
