@@ -64,3 +64,22 @@ pipenv install
 cd tests
 python test_papa.py 
 ```
+
+## Deploy
+1. install setuptools, then you could write setup file inherited from setuptools
+```
+curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+```
+2.install twine, for upload file to pypi
+```
+pip install twine
+```
+3. sdist file
+```
+python setup.py sdist
+
+twine upload dist/*
+```
+
+
+
