@@ -26,7 +26,7 @@ else:
     # get board objects by sequences and index_selected_area
     boards = papa.board.init(board_sequences, index_selected_area)
     # execute boards process
-    papa.board.task_execute(boards, index.domian_name, 1, post_call_back)
+    papa.board.task_execute(boards, index.domian_name, 1, 40, post_call_back)
 
     print("---------------end---------------")
     print(time.time() - t)

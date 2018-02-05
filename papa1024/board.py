@@ -15,12 +15,12 @@ def init(board_sequences, index_selected_area):
     return boards
 
 
-def task_execute(boards, domian_name, max_page_index, func_callback):
+def task_execute(boards, domian_name, max_page_index, pool_size, func_callback):
     """execute process"""
     mp_count = []
     for board in boards:
         process = multiprocessing.Process(target=board.board_process, args=(
-            board, domian_name, max_page_index, func_callback))
+            board, domian_name, max_page_index, pool_size, func_callback))
         process.daemon = True
         process.start()
         mp_count.append(process)
@@ -42,10 +42,10 @@ class Board(object):
         self.url = None
         self.posts = []
 
-    def board_process(self, board, domian_name, max_page_indexs, func_callback):
+    def board_process(self, board, domian_name, max_page_indexs, pool_size, func_callback):
         """createa board_process """
         url = domian_name + board.url
-        pool = threadpool.ThreadPool(20)
+        pool = threadpool.ThreadPool(pool_size)
         args = []
         for page_index in range(1, max_page_indexs + 1):
             rows = self.get_pager_rows(url, page_index)
