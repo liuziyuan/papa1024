@@ -17,4 +17,13 @@ def get_doc(url):
         page.encoding = 'gbk'
         doc = pq(page.text)
         return doc
-    
+
+def is_connected(url):
+    """is connected web site by url"""
+    try:
+        page = requests.get(url)
+        page.raise_for_status()
+    except requests.RequestException as exc:
+        return False
+    else:
+        return True
