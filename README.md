@@ -75,7 +75,7 @@ python test_papa.py
 ```
 curl https://bootstrap.pypa.io/ez_setup.py -o - | python
 ```
-2.install twine, for upload file to pypi
+2. install twine, for upload file to pypi
 ```
 pip install twine
 ```
@@ -85,6 +85,3 @@ python setup.py sdist
 
 twine upload dist/*
 ```
-
-
-
