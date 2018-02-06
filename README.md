@@ -12,37 +12,42 @@ Through this application to learn python, including  string, array, dictionary, 
 python papa.py
 ```
 
-### Code
+### Demo Code
 ```
 # -*- coding:utf-8 -*-
-import spider_papa as papa
+import papa1024 as papa
 import time
 
 
 def post_call_back(request, result):
     """get post callback function, result is the post object"""
-    print result.url
-    print result.download_count
+    print(result.url)
+    print(result.download_count)
 
-domian_name = 'http://dd.itbb.men/'
-print '---------------start---------------'
+domian_name = 'http://cl.ghuws.men/'
+print('---------------start---------------')
 t = time.time()
 
 # get index object
-index = papa.index.Index(domian_name)
-# get selected area at index page
-index_selected_area = index.init_index()
+try:
+    index = papa.index.Index(domian_name)
+except Exception as exc:
+    print(exc)
+else:
+    # get selected area at index page
+    index_selected_area = index.init_index()
 
-# get board info by sequences
-board_sequences = [0, 1, 2, 4, 5]
-# get board objects by sequences and index_selected_area
-boards = papa.board.init(board_sequences, index_selected_area)
-# execute boards process
-papa.board.task_execute(boards, index.domian_name, 1, post_call_back)
+    # get board info by sequences
+    board_sequences = [0, 1, 2, 4, 5]
+    # get board objects by sequences and index_selected_area
+    boards = papa.board.init(board_sequences, index_selected_area)
+    # execute boards process
+    papa.board.task_execute(boards, index.domian_name, 1, 40, post_call_back)
 
-print("---------------end---------------")
-print(time.time() - t)
+    print("---------------end---------------")
+    print(time.time() - t)
 ```
+
 
 ## Development
 
