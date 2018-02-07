@@ -16,7 +16,7 @@ def init(board_sequences, index_selected_area):
 
 
 def task_execute(boards, domian_name, max_page_index, pool_size, func_callback):
-    """execute process"""
+    """use multi process to execute with sync way"""
     mp_count = []
     for board in boards:
         process = multiprocessing.Process(target=board.board_process, args=(
@@ -28,6 +28,12 @@ def task_execute(boards, domian_name, max_page_index, pool_size, func_callback):
     for process in mp_count:
         process.join()
     return
+
+def execute(boards, domian_name, max_page_index, func_callback):
+    """use main process to execute with sync way"""
+    for board in boards:
+        board.board_single(board, domian_name, max_page_index, func_callback)
+        
 
 class Board(object):
     """
@@ -42,18 +48,26 @@ class Board(object):
         self.url = None
         self.posts = []
 
-    def board_process(self, board, domian_name, max_page_indexs, pool_size, func_callback):
-        """createa board_process """
+    def board_process(self, board, domian_name, max_page_index, pool_size, func_callback):
+        """create a process that opens up a multi thread pool in this process"""
         url = domian_name + board.url
         pool = threadpool.ThreadPool(pool_size)
         args = []
-        for page_index in range(1, max_page_indexs + 1):
+        for page_index in range(1, max_page_index + 1):
             rows = self.get_pager_rows(url, page_index)
             for row in rows:
                 args.append((None, {'row': row, 'domian_name': domian_name}))
         requests = threadpool.makeRequests(self.__set_post, args, func_callback)
         [pool.putRequest(req) for req in requests]
         pool.wait()
+        
+    def board_single(self, board, domian_name, max_page_indexs, func_callback):
+        url = domian_name + board.url
+        for page_index in range(1, max_page_indexs + 1):
+            rows = self.get_pager_rows(url, page_index)
+            for row in rows:
+                post = self.__set_post(row, domian_name)
+                func_callback(None, post)
 
     def __set_post(self, row, domian_name):
         """set post info and return the post object"""
