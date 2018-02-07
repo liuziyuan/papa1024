@@ -8,16 +8,14 @@ import papa1024 as papa
 
 class TestMathFunc(unittest.TestCase):
     """Test papa public function"""
-
-    def setUp(self):
+    
+    @classmethod
+    def setUpClass(cls):
         print("create index object before test.Prepare environment.")
-        self.domian_name = 'http://cl.ghuws.men/'
-        self.index = papa.index.Index(self.domian_name)
-        self.index_selected_area = self.index.init_index()
-        self.board = papa.board.Board(1)
-
-    def test_domian_name(self):
-        papa.get_doc(self.domian_name)
+        cls.domian_name = 'http://cl.ghuws.men/'
+        cls.index = papa.index.Index(cls.domian_name)
+        cls.index_selected_area = cls.index.init_index()
+        cls.board = papa.board.Board(1)
 
     def test_set_board_info(self):
         """Test function set_board_info() on board module"""
