@@ -2,3 +2,4 @@
 *.pyc
 papa1024.egg-info
 dist
+papa1024/__pycache__
