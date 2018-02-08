@@ -8,8 +8,10 @@ Through this application to learn python, including  string, array, dictionary, 
 ## How to use it
 
 ### Command
+
+This package used coroutine(async/await), so just install at Python 3.5+
 ```
-python papa.py
+pip install papa1024
 ```
 
 ### Demo Code
@@ -59,17 +61,7 @@ else:
 
 ## Development
 
-### Pre Installation
-
-```
-sudo pip install pipenv
-```
-
 ### Recover project
-
-```
-pipenv install
-```
 
 ### Unit tests
 
