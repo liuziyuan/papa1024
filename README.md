@@ -61,7 +61,19 @@ else:
 
 ## Development
 
+### Generate requirements.txt
+```
+pip install pipreqs
+
+cd project-root-path
+pipreqs ./
+```
+
 ### Recover project
+```
+pip install -r requirements.txt
+```
+
 
 ### Unit tests
 
