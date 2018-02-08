@@ -7,7 +7,7 @@ def read(f):
 setup(name='papa1024',
       version='1.0.6',
       description='papa1024 is the web crawler application of the 1024 forum.',
-      long_description=read('README.rst'),
+      long_description='\r\n' + read('README.rst'),
       license='MIT',
       author='liuziyuan',
       author_email='liuziyuan.room@gmail.com',
