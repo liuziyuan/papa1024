@@ -2,7 +2,7 @@
 
 ## Description
 > papa(爬爬)1024 is the web crawler application of the 1024 forum.
-Through this application to learn python, including  string, array, dictionary, class, multithread, multi process and so on. Through this project, we can master various uses of Python.
+Through this application to learn python, including  string, array, dictionary, class, multithread, multi process ,coroutine and so on. Through this project, we can master various uses of Python.
 
 
 ## How to use it
