@@ -28,7 +28,6 @@ def task_execute(boards, domian_name, max_page_index, pool_size, func_callback):
 
     for process in mp_count:
         process.join()
-    return
 
 def task_async_execute(boards, domian_name, max_page_index, func_callback):
     """use multi process to execute with sync way"""
@@ -42,7 +41,7 @@ def task_async_execute(boards, domian_name, max_page_index, func_callback):
 
     for process in mp_count:
         process.join()
-    return
+    
 
 def execute(boards, domian_name, max_page_index, func_callback):
     """use main process to execute with sync way"""
