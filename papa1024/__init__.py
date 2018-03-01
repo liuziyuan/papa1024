@@ -4,9 +4,6 @@ import requests
 from pyquery import PyQuery as pq
 import asyncio
 import aiohttp
-import papa1024.index
-import papa1024.board
-import papa1024.post
 
 
 def get_doc(url):
