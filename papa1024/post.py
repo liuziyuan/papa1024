@@ -28,7 +28,7 @@ class Post(object):
         # print self.download_count
         return self
 
-    async def async_set_post_base_info(self,session, row, domian_name):
+    async def async_set_post_base_info(self, session, row, domian_name):
         """ set post base infomation by async"""
         link = row.find('.tal').find('a')
         href = link.attr('href')
@@ -59,7 +59,7 @@ class Post(object):
         text = doc.text()
         index = text.find('Downloaded:')
         index += 11
-        count = list(filter(str.isdigit, text[index : index + 8]))
+        count = list(filter(str.isdigit, text[index: index + 8]))
         count = ''.join(map(str, count))
         return count
 
@@ -72,6 +72,7 @@ class Post(object):
     async def async_get_download_url(self, session, url):
         """get download url by async"""
         # print url
+
         doc = await papa.async_get_doc(session, url)
         return self.__set_download_url(doc)
 

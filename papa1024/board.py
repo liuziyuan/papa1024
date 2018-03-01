@@ -29,6 +29,7 @@ def task_execute(boards, domian_name, max_page_index, pool_size, func_callback):
     for process in mp_count:
         process.join()
 
+
 def task_async_execute(boards, domian_name, max_page_index, func_callback):
     """use multi process to execute with sync way"""
     mp_count = []
@@ -41,13 +42,13 @@ def task_async_execute(boards, domian_name, max_page_index, func_callback):
 
     for process in mp_count:
         process.join()
-    
+
 
 def execute(boards, domian_name, max_page_index, func_callback):
     """use main process to execute with sync way"""
     for board in boards:
         board.board_single(board, domian_name, max_page_index, func_callback)
-        
+
 
 class Board(object):
     """
@@ -69,7 +70,8 @@ class Board(object):
             connector = papa.get_aiohttp_TCPConnector(120)
             session = papa.get_aiohttp_ClientSession(connector)
             rows = self.get_pager_rows(url, page_index)
-            tasks = [self.async_set_post(session, row, domian_name, func_callback) for row in rows]
+            tasks = [self.async_set_post(
+                session, row, domian_name, func_callback) for row in rows]
             loop.run_until_complete(asyncio.wait(tasks))
             loop.close()
             connector.close()
@@ -86,7 +88,7 @@ class Board(object):
         requests = threadpool.makeRequests(self.set_post, args, func_callback)
         [pool.putRequest(req) for req in requests]
         pool.wait()
-        
+
     def board_single(self, board, domian_name, max_page_index, func_callback):
         url = domian_name + board.url
         for page_index in range(1, max_page_index + 1):
@@ -97,13 +99,20 @@ class Board(object):
 
     def set_post(self, row, domian_name):
         """set post info and return the post object"""
-        post = papa.post.Post()
-        return post.set_post_base_info(row, domian_name)
+        try:
+            post = papa.post.Post()
+            return post.set_post_base_info(row, domian_name)
+        except:
+            return None
 
     async def async_set_post(self, session, row, domian_name, func_callback):
-        post = papa.post.Post()
-        post = await post.async_set_post_base_info(session, row, domian_name)
-        func_callback(None, post)
+        try:
+            post = papa.post.Post()
+            post = await post.async_set_post_base_info(session, row, domian_name)
+        except:
+            post = None
+        else:
+            func_callback(None, post)
 
     def set_board_info(self, index_selected_area):
         """ set board url and name """
@@ -152,7 +161,7 @@ class Board(object):
 
     def __get_trs(self, doc):
         return doc('#ajaxtable').find('tr')
-        
+
     def __get_selected_rows(self, trs):
         index = 0
         common_topic_index = 0
