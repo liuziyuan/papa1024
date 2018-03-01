@@ -8,6 +8,7 @@ import papa1024.index
 import papa1024.board
 import papa1024.post
 
+
 def get_doc(url):
     """get PyQuery object"""
     try:
@@ -20,21 +21,28 @@ def get_doc(url):
         doc = pq(page.text)
         return doc
 
+
 def is_connected(url):
     """is connected web site by url"""
     try:
         page = requests.get(url)
         page.raise_for_status()
-    except requests.RequestException as exc:
+    except:
         return False
     else:
         return True
 
+
 async def async_get_doc(session, url):
     async with session.get(url) as response:
-        text = await response.text(encoding='gbk')
-        doc = pq(text)
-        return doc
+        try:
+            text = await response.text(encoding='gbk')
+        except Exception as exc:
+            raise exc
+        else:
+            doc = pq(text)
+            return doc
+
 
 def get_aiohttp_TCPConnector(limit_size):
     if limit_size >= 0:
@@ -42,10 +50,6 @@ def get_aiohttp_TCPConnector(limit_size):
     else:
         return aiohttp.TCPConnector()
 
+
 def get_aiohttp_ClientSession(connector):
     return aiohttp.ClientSession(connector=connector)
-
-# def get_aiohttp_session():
-#     connector = get_aiohttp_TCPConnector()
-#     return get_aiohttp_ClientSession(connector)
-    
