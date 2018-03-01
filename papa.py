@@ -30,10 +30,10 @@ else:
     # papa.board.execute(boards, index.domian_name, 1, post_call_back)
 
     # method 2: execute boards multi process, any process created a thread pool to get http requests
-    papa.board.task_execute(boards, index.domian_name, 1, 40, post_call_back)
+    # papa.board.task_execute(boards, index.domian_name, 1, 40, post_call_back)
 
     # method 3: execute boards multi process, any process created a coroutine to get http requests
-    # papa.board.task_async_execute(boards, index.domian_name, 1, post_call_back)
+    papa.board.task_async_execute(boards, index.domian_name, 1, post_call_back)
 
     print("---------------end---------------")
     print(time.time() - t)
