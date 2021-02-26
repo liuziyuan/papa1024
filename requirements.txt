@@ -1,5 +1,5 @@
 pyquery==1.4.0
-aiohttp==2.3.10
+aiohttp==3.7.4
 threadpool==1.3.2
 setuptools==28.8.0
 requests==2.18.4
